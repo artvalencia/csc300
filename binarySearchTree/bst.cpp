@@ -77,14 +77,81 @@ void printAscending(node* root) {
 }
 
 
+void printParenthetical(node* root) {
+    if (root != nullptr) {
+        cout << root->data << " ";
+
+        if (root->left != nullptr || root->right != nullptr) {
+            cout << "( ";
+        }
+
+        printParenthetical(root->left);
+        printParenthetical(root->right);
+        if (root->left != nullptr || root->right != nullptr) {
+            cout << ") ";
+        }
+    }
+
+
+}
+
 
 int main () {
     node *root = nullptr;
 
-    insertNode(root, 54);
+    insertNode(root, 12);
     printAscending(root);
+    cout << endl << endl;
+
+    insertNode(root, 34);
+    printAscending(root);
+    cout << endl << endl;
 
 
+    insertNode(root, 44);
+    printAscending(root);
+    cout << endl << endl;
+    
+
+    insertNode(root, 78);
+    printAscending(root);
+    cout << endl << endl;
+
+
+    insertNode(root, 33);
+    printAscending(root);
+    cout << endl << endl;
+
+    insertNode(root, 10);
+    printAscending(root);
+    cout << endl << endl;
+
+    insertNode(root, 7);
+    printAscending(root);
+    cout << endl << endl;
+
+    insertNode(root, 6);
+    printAscending(root);
+    cout << endl << endl;
+
+
+    insertNode(root, 8);
+    printAscending(root);
+    cout << endl << endl;
+
+    insertNode(root, 5);
+    printAscending(root);
+    cout << endl << endl;
+
+    insertNode(root, 4);
+    printAscending(root);
+    cout << endl << endl;
+
+    insertNode(root, 76);
+    printAscending(root);
+    cout << endl << endl;
+
+    printParenthetical(root);
 
     return 0;
 }
