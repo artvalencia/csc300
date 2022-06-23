@@ -91,67 +91,41 @@ void printParenthetical(node* root) {
             cout << ") ";
         }
     }
-
-
 }
 
 
-int main () {
-    node *root = nullptr;
+node* searchNode(node* root, int key) {
+    if (root == nullptr) {
+        cout << "Key not in tree, returning nullptr\n";
+        return nullptr;
+    }
+    else if (root->data == key) {
+        return root;
+    }
+    else {
+        if (root->data > key) {
+            searchNode(root->left, key);
+        }
+        else {
+            searchNode(root->right, key);
+        }
+    }
+}
 
-    insertNode(root, 12);
-    printAscending(root);
-    cout << endl << endl;
 
-    insertNode(root, 34);
-    printAscending(root);
-    cout << endl << endl;
-
-
-    insertNode(root, 44);
-    printAscending(root);
-    cout << endl << endl;
+int findSmallest(node* root) {
+    if (root->left == nullptr) {
+        return root->data;
+    }
     
-
-    insertNode(root, 78);
-    printAscending(root);
-    cout << endl << endl;
+    findSmallest(root->left);
+}
 
 
-    insertNode(root, 33);
-    printAscending(root);
-    cout << endl << endl;
-
-    insertNode(root, 10);
-    printAscending(root);
-    cout << endl << endl;
-
-    insertNode(root, 7);
-    printAscending(root);
-    cout << endl << endl;
-
-    insertNode(root, 6);
-    printAscending(root);
-    cout << endl << endl;
-
-
-    insertNode(root, 8);
-    printAscending(root);
-    cout << endl << endl;
-
-    insertNode(root, 5);
-    printAscending(root);
-    cout << endl << endl;
-
-    insertNode(root, 4);
-    printAscending(root);
-    cout << endl << endl;
-
-    insertNode(root, 76);
-    printAscending(root);
-    cout << endl << endl;
-
-    printParenthetical(root);
-
-    return 0;
+int findLargest(node* root) {
+    if (root->right == nullptr) {
+        return root->data;
+    }
+    
+    findLargest(root->right);
 }
