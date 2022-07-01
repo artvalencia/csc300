@@ -1,0 +1,8 @@
+# Instructions
+For this assignment fill an array of 10 integers with random values ranging from 0 to 100.
+
+* Convert all the functions written in the lecture video in such a way that they produce a **min** heap instead of a max heap.
+* Write a function called heapify that takes an array of any length of random integers, and converts it into a valid min heap. The function signature should look like:  `void heapify(int heap[], int &lastIndex, int size);`  The parameters heap and lastIndex are used in the same way as the other functions use them. The variable size has the number of elements inside of the array to begin with. Your function should also set lastIndex to its appropriate value. Notice that lastIndex is being passed by reference. This function may use reheapUp and/or reheapDown as needed.
+* Write a function that takes in a min heap and prints all the contents in ascending order. No matter the method used, when the function ends, the heap array passed into the function should have the same values inside of it and follow the rules of a valid min heap. *Hint* the values in the array don't necessarily have to be in the same order when the function exits as when the heap entered the function to begin with; but it's fine if they are. The function signature should be:  `void printHeap(int heap[], int lastIndex);`
+
+While it is a good idea to test your functions in a main program, I will be writing my own to test your code with, so you do not need to submit one yourself.  Please submit your heap.h and heap.cpp files, keeping the names of the files and functions precise, along with the number of parameters specified.
