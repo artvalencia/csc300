@@ -23,10 +23,8 @@ void reheapUp(int heap[], int locIndex) {
     int parentIndex = (locIndex - 1)/2;
 
     if (heap[parentIndex] < heap[locIndex]) {
-        int hold = heap[parentIndex];
-        heap[parentIndex] = heap[locIndex];
-        heap[locIndex] = hold;
-
+        swap(heap[parentIndex], heap[locIndex]);
+        
         reheapUp(heap, parentIndex);
     }
 }
