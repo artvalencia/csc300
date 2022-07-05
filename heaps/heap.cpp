@@ -22,7 +22,7 @@ void reheapUp(int heap[], int locIndex) {
     
     int parentIndex = (locIndex - 1)/2;
 
-    if (heap[parentIndex] < heap[locIndex]) {
+    if (heap[parentIndex] > heap[locIndex]) {
         swap(heap[parentIndex], heap[locIndex]);
         
         reheapUp(heap, parentIndex);
@@ -41,7 +41,7 @@ void deleteHeap(int heap[], int &lastIndex) {
 
 }
 void reheapDown(int heap[], int locIndex, int lastIndex) {
-   int leftIndex, rightIndex, biggestIndex, leftValue, rightValue;
+   int leftIndex, rightIndex, smallestIndex, leftValue, rightValue;
 
    leftIndex = 2*locIndex + 1;
    if (leftIndex <= lastIndex) { //means left child exists
@@ -52,23 +52,20 @@ void reheapDown(int heap[], int locIndex, int lastIndex) {
         }
         else {
             // Have left child but no right child
-            rightValue = leftValue - 1; //always less than leftValue
+            rightValue = leftValue + 1; //always less than leftValue
         }
 
-        if (leftValue > rightValue) {
-            biggestIndex = leftIndex;
+        if (leftValue < rightValue) {
+            smallestIndex = leftIndex;
         }
         else {
-            biggestIndex = rightIndex;
+            smallestIndex = rightIndex;
         }
 
         //Check if should swap
-        if (heap[biggestIndex] > heap[locIndex]) {
-            int hold = heap[locIndex];
-            heap[locIndex] = heap[biggestIndex];
-            heap[biggestIndex] = hold;
-
-            reheapDown(heap, biggestIndex, lastIndex);
+        if (heap[smallestIndex] < heap[locIndex]) {
+            swap(heap[smallestIndex], heap[locIndex]);
+            reheapDown(heap, smallestIndex, lastIndex);
         }
     }
 }
@@ -80,6 +77,7 @@ int main() {
     int newValue;
     int lastIndex = -1;
 
+    srand(time(0));
     for (int i = 0 ; i < size ; i++) {
         newValue = rand() % (max+1 - min) + min;
         cout << newValue << "  ";
