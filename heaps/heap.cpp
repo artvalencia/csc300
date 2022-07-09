@@ -52,7 +52,7 @@ void reheapDown(int heap[], int locIndex, int lastIndex) {
         }
         else {
             // Have left child but no right child
-            rightValue = leftValue + 1; //always less than leftValue
+            rightValue = leftValue + 1; //always more than leftValue
         }
 
         if (leftValue < rightValue) {
@@ -70,26 +70,79 @@ void reheapDown(int heap[], int locIndex, int lastIndex) {
     }
 }
 
+void heapify(int heap[], int &lastIndex, int size) {
+    for (int i = lastIndex; i >= 0 ; i--) {
+        reheapDown(heap, i, lastIndex);
+    }
+}
+
+
+void printHeap(int heap[], int lastIndex) {
+    int size = lastIndex + 1;
+    int tmp[size];
+
+    for (int i = 0 ; i < size ; i++) {
+        tmp[i] = heap[i];
+    }
+    for (int i = 0 ; i < size ; i++) {
+        cout << tmp[0] << " ";
+        deleteHeap(tmp, lastIndex);
+    }
+}
+
+
 int main() {
-    int heap[10];
-    int size =10;
+    // int heap[10];
+    // int size =10;
     int min =0, max = 100;
     int newValue;
-    int lastIndex = -1;
+    // int lastIndex = -1;
 
+    // srand(time(0));
+    // for (int i = 0 ; i < size ; i++) {
+    //     newValue = rand() % (max+1 - min) + min;
+    //     cout << newValue << "  ";
+    //     insertHeap(heap, newValue, lastIndex);
+    // }
+
+    // cout << endl << endl;
+
+    // for (int i = 0 ; i < size ; i++) {
+    //     cout << heap[0] << "  ";
+    //     deleteHeap(heap, lastIndex);
+    // }
+
+    cout << "\n\nTesting heapify\n\n";
+
+    int i = 0, arrSize = 10;
+
+    int newHeap[arrSize];
     srand(time(0));
-    for (int i = 0 ; i < size ; i++) {
+    for (i = 0 ; i < arrSize ; i++) {
         newValue = rand() % (max+1 - min) + min;
-        cout << newValue << "  ";
-        insertHeap(heap, newValue, lastIndex);
+        newHeap[i] = newValue;
     }
 
-    cout << endl << endl;
+    for (i = 0 ; i < arrSize ; ++i) {
+        cout << newHeap[i] << " ";
+    } 
+    cout << endl;
 
-    for (int i = 0 ; i < size ; i++) {
-        cout << heap[0] << "  ";
-        deleteHeap(heap, lastIndex);
-    }
+    int lastIndexArr = arrSize - 1;
+
+    cout << lastIndexArr << endl;
+
+    heapify(newHeap, lastIndexArr, arrSize);
+
+    cout << lastIndexArr << endl;
+
+    // for (int i = 0 ; i < arrSize ; i++) {
+    //     cout << newHeap[0] << " ";
+    //     deleteHeap(newHeap, lastIndexArr);
+    // }
+    printHeap(newHeap, lastIndexArr);
+    cout << endl<< endl;
+    printHeap(newHeap, lastIndexArr);
 
 
 
