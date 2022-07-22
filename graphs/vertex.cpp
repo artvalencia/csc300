@@ -68,27 +68,36 @@ void printGraph(Vertex* vHead) {
 void addArc(Vertex* vHead, char from, char to) {
     // First step: Traverse to the "from" Vertex
 
-    Vertex* fromVer = vHead;
-
-    while (fromVer != nullptr && fromVer->data < from) {
-        fromVer = fromVer->vNext;
-    }
-
-    if (fromVer == nullptr || fromVer->data > from) {
-        cout << "Starting vertex is not in the list.\n";
+    Vertex* fromVer = findVertex(vHead, from);
+    if (fromVer == nullptr) {
+        cout << "from vertex is not in the list\n";
         return;
     }
 
-    Vertex* toVer = vHead;
+    //while (fromVer != nullptr && fromVer->data < from) {
+    //    fromVer = fromVer->vNext;
+    //}
 
-    while (toVer != nullptr && toVer->data < to) {
-        toVer = toVer->vNext;
-    }
+    //if (fromVer == nullptr || fromVer->data > from) {
+    //    cout << "Starting vertex is not in the list.\n";
+    //    return;
+    //}
 
-    if (toVer == nullptr || toVer->data > to) {
-        cout << "Destination vertex is not in the list.\n";
+    //Vertex* toVer = vHead;
+    Vertex* toVer = findVertex(vHead, to);
+    if (toVer == nullptr) {
+        cout << "to vertex is not in the list\n";
         return;
     }
+
+    //while (toVer != nullptr && toVer->data < to) {
+    //    toVer = toVer->vNext;
+    //}
+
+    //if (toVer == nullptr || toVer->data > to) {
+    //    cout << "Destination vertex is not in the list.\n";
+    //    return;
+    //}
 
     Arc* newArc = new Arc;
     newArc->dest = toVer;
@@ -172,10 +181,37 @@ void remArc(Vertex* vHead, char from, char to) {
 }
 
 
+Vertex* findVertex(Vertex* vHead, char key) {
+    Vertex* findVer = vHead;
 
 
+    while (findVer != nullptr && findVer->data < key) {
+        findVer = findVer->vNext;
+    }
+
+    if (findVer == nullptr || findVer->data > key) {
+        return nullptr;
+    }
+    else {
+        return findVer;
+    }
+}
+
+
+void remVertex(Vertex*& vHead, char label) {
+    Vertex* findVer = findVertex(vHead, label);
+    if (findVer == nullptr) {
+        cout << "Vertex not in the list.\n";
+        return;
+    }
+
+    
+
+
+
+
+
+}
 
 //void remVertex(Vertex*& vHead, char label);
 //  Remove all incoming arcs as well as the vertex itself and its outgoing arcs
-//Vertex* findVertex(Vertex* vHead, char key);
-//void printGraph(Vertex* vHead);
