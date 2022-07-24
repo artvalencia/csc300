@@ -22,10 +22,13 @@ int main () {
 
     printGraph(gHead);
 
-    remArc(gHead, 'C', 'D');
-    remArc(gHead, 'E', 'F');
-
+    remVertex(gHead, 'E');
+   // printGraph(gHead);
+   // remArc(gHead, 'C', 'E');
+   // remArc(gHead, 'E', 'F');
     printGraph(gHead);
+//
+//    printGraph(gHead);
 
 
     return 0;

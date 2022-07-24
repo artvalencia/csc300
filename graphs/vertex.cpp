@@ -205,13 +205,21 @@ void remVertex(Vertex*& vHead, char label) {
         return;
     }
 
-    
+    Vertex* vTmp = vHead;
+    Arc* aTmp = nullptr; 
 
-
-
-
-
+    //deleting all arcs first, have to go back and delete vertex
+    while (vTmp != nullptr) {
+        aTmp = vTmp->aHead;
+        while (aTmp != nullptr) {
+            if (aTmp->dest->data == label) {
+                remArc(vHead, vTmp->data, label);
+                aTmp = nullptr;
+            }
+            if (aTmp != nullptr) {
+                aTmp = aTmp->aNext;
+            }
+        }
+        vTmp = vTmp->vNext;
+    }
 }
-
-//void remVertex(Vertex*& vHead, char label);
-//  Remove all incoming arcs as well as the vertex itself and its outgoing arcs
