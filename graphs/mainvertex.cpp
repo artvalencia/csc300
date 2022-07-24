@@ -1,3 +1,8 @@
+//This is for testing purposes only, not to be submitted with assignment
+
+
+
+
 #include "vertex.h"
 #include <iostream>
 using namespace std;
