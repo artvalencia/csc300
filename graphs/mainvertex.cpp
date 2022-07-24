@@ -22,7 +22,8 @@ int main () {
 
     printGraph(gHead);
 
-    remVertex(gHead, 'E');
+    remVertex(gHead, 'A');
+    remVertex(gHead, 'F');
    // printGraph(gHead);
    // remArc(gHead, 'C', 'E');
    // remArc(gHead, 'E', 'F');

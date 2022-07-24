@@ -34,10 +34,8 @@ void addVertex(Vertex*& vHead, char label) {
         newVertex->vNext = curVer->vNext;
         curVer->vNext = newVertex;
     }
-
-
-
 }
+
 
 void printGraph(Vertex* vHead) {
     Vertex* curVer = vHead;
@@ -74,35 +72,15 @@ void addArc(Vertex* vHead, char from, char to) {
         return;
     }
 
-    //while (fromVer != nullptr && fromVer->data < from) {
-    //    fromVer = fromVer->vNext;
-    //}
-
-    //if (fromVer == nullptr || fromVer->data > from) {
-    //    cout << "Starting vertex is not in the list.\n";
-    //    return;
-    //}
-
-    //Vertex* toVer = vHead;
     Vertex* toVer = findVertex(vHead, to);
     if (toVer == nullptr) {
         cout << "to vertex is not in the list\n";
         return;
     }
 
-    //while (toVer != nullptr && toVer->data < to) {
-    //    toVer = toVer->vNext;
-    //}
-
-    //if (toVer == nullptr || toVer->data > to) {
-    //    cout << "Destination vertex is not in the list.\n";
-    //    return;
-    //}
-
     Arc* newArc = new Arc;
     newArc->dest = toVer;
     newArc->aNext = nullptr;
-
     
     if (fromVer->aHead == nullptr) {
         fromVer->aHead = newArc;
@@ -129,16 +107,12 @@ void addArc(Vertex* vHead, char from, char to) {
         newArc->aNext = curArc->aNext;
         curArc->aNext = newArc;
     }
-
-
-
 }
 
 
 void remArc(Vertex* vHead, char from, char to) {
     // First Step: Find the "from Vertex
     Vertex* fromVer = vHead;
-
 
     while (fromVer != nullptr && fromVer->data < from) {
         fromVer = fromVer->vNext;
@@ -148,7 +122,6 @@ void remArc(Vertex* vHead, char from, char to) {
         cout << "Starting vertex is not in the list.\n";
         return;
     }
-
 
     Arc* curArc = fromVer->aHead;
     if (curArc == nullptr) {
@@ -176,14 +149,11 @@ void remArc(Vertex* vHead, char from, char to) {
         curArc->aNext = curArc->aNext->aNext;
         delete dltPtr;
     }
-
-
 }
 
 
 Vertex* findVertex(Vertex* vHead, char key) {
     Vertex* findVer = vHead;
-
 
     while (findVer != nullptr && findVer->data < key) {
         findVer = findVer->vNext;
@@ -200,15 +170,17 @@ Vertex* findVertex(Vertex* vHead, char key) {
 
 void remVertex(Vertex*& vHead, char label) {
     Vertex* findVer = findVertex(vHead, label);
+    Vertex* vTmp = vHead;
+    Vertex* prevVer = vHead;
+    Arc* aTmp = nullptr; 
+    
+    //See if Vertex is in the list. If not, return.
     if (findVer == nullptr) {
         cout << "Vertex not in the list.\n";
         return;
     }
 
-    Vertex* vTmp = vHead;
-    Arc* aTmp = nullptr; 
-
-    //deleting all arcs first, have to go back and delete vertex
+    //deleting all incoming arcs first, have to go back and delete vertex
     while (vTmp != nullptr) {
         aTmp = vTmp->aHead;
         while (aTmp != nullptr) {
@@ -222,4 +194,29 @@ void remVertex(Vertex*& vHead, char label) {
         }
         vTmp = vTmp->vNext;
     }
+
+    // Removing all outgoing arcs
+    aTmp = findVer->aHead;
+
+    while (aTmp != nullptr) {
+        remArc(vHead, label, aTmp->dest->data);
+        aTmp = findVer->aHead;
+    }
+
+    // Removing Vertex from list
+
+    // Remove Vertex if first vertex on the list
+    if (findVer == vHead) {
+        Vertex* dltVer = vHead;
+        vHead = vHead->vNext;
+        delete dltVer;
+        return;
+    }
+
+    // Remove Vertex if not first vertex on the list
+    while (prevVer->vNext != findVer) {
+        prevVer = prevVer->vNext;
+    }
+    prevVer->vNext = prevVer->vNext->vNext;
+    delete findVer;
 }
